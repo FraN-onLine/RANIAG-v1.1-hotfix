@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://c870iih6j6dqe"]
+
+[ext_resource type="Texture2D" uid="uid://cn6r4clkvm7sv" path="res://Assets/candles/candles1.png" id="1_h8aev"]
+[ext_resource type="Texture2D" uid="uid://25c60uiybw5y" path="res://Assets/candles/candles2.png" id="2_y10ce"]
+[ext_resource type="Texture2D" uid="uid://b2r1jw4dc1g2" path="res://Assets/candles/candles3.png" id="3_hdr2n"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_42ajg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_h8aev")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_y10ce")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_hdr2n")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="CAndles" type="AnimatedSprite2D"]
+scale = Vector2(0.001, 0.001)
+sprite_frames = SubResource("SpriteFrames_42ajg")
+frame = 1
+frame_progress = 0.640081

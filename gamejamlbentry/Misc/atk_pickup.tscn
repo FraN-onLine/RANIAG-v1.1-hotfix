@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://b5pycbqowldip"]
+
+[ext_resource type="Script" uid="uid://buhnxir6lhcar" path="res://Scripts/atk_pickup.gd" id="1_0qeto"]
+[ext_resource type="Texture2D" uid="uid://c8wbrv23u12q1" path="res://Assets/Pickups/atk/power-up1.png" id="2_nsoys"]
+[ext_resource type="Texture2D" uid="uid://l1lbve6kjtqw" path="res://Assets/Pickups/atk/power-up2.png" id="3_477d3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ui3g"]
+atlas = ExtResource("2_nsoys")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_866jm"]
+atlas = ExtResource("3_477d3")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w071n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ui3g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_866jm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wby0g"]
+radius = 7.07107
+
+[node name="AtkPickup" type="Area2D"]
+collision_layer = 15
+collision_mask = 15
+script = ExtResource("1_0qeto")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_w071n")
+autoplay = "default"
+frame_progress = 0.318454
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_wby0g")

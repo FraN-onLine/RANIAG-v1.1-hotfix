@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://mr61n2mminj5"]
+
+[ext_resource type="Script" uid="uid://kv8md83xsyxk" path="res://Scripts/fireball.gd" id="1_njkve"]
+
+[sub_resource type="Gradient" id="Gradient_qrwv7"]
+offsets = PackedFloat32Array(0.422078, 0.668831, 1)
+colors = PackedColorArray(0.501885, 0.269208, 0.159253, 1, 0.324675, 0.324675, 0.324675, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4jx06"]
+gradient = SubResource("Gradient_qrwv7")
+width = 1
+height = 1
+fill_from = Vector2(0.298165, 0.385321)
+fill_to = Vector2(0.53211, 0.733945)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fc30t"]
+radius = 16.0312
+
+[node name="Area2D" type="Area2D"]
+collision_layer = 143
+collision_mask = 143
+script = ExtResource("1_njkve")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-0.0937496, 0.0937502)
+scale = Vector2(24.1875, 21.8125)
+texture = SubResource("GradientTexture2D_4jx06")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_fc30t")

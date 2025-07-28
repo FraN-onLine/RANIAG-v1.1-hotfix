@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://bds138ih3x6h2"]
+
+[sub_resource type="GDScript" id="GDScript_jkya8"]
+script/source = "extends Area2D
+
+var checkpoint_manager
+
+func _ready() -> void:
+	checkpoint_manager = get_parent().get_node(\"CheckpointManager\")
+	
+func _on_body_entered(body: Node2D) -> void:
+	if body.is_in_group(\"Player\"):
+		checkpoint_manager.last_location = $RespawnPoint.global_position
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jkya8"]
+size = Vector2(20, 152)
+
+[node name="Checkpoint" type="Area2D"]
+script = SubResource("GDScript_jkya8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 9)
+shape = SubResource("RectangleShape2D_jkya8")
+
+[node name="RespawnPoint" type="Marker2D" parent="."]
+position = Vector2(53, -1)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

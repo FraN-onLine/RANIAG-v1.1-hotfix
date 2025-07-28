@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://s6ivj0wc7o1q"]
+
+[ext_resource type="Texture2D" uid="uid://brurmt38gb4v3" path="res://Assets/Backgrounds/Tilesets/TilesetVillageAbandoned.png" id="1_lc71i"]
+[ext_resource type="PackedScene" uid="uid://dd5l1o48tm5e6" path="res://Interaction/interaction area/interaction_area.tscn" id="3_sil7d"]
+
+[sub_resource type="GDScript" id="GDScript_emsl2"]
+script/source = "extends Area2D
+class_name InteractionArea
+
+@export var action_name: String = \"interact\"
+
+
+var interact: Callable = func():
+	pass
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0aex0"]
+atlas = ExtResource("1_lc71i")
+region = Rect2(144, 176, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hevue"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0aex0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dmpok"]
+radius = 19.0
+
+[node name="Sign" type="Node2D"]
+script = SubResource("GDScript_emsl2")
+action_name = null
+sign_text = null
+display_distance = null
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_hevue")
+
+[node name="InteractionArea" parent="." instance=ExtResource("3_sil7d")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+position = Vector2(0, 7)
+shape = SubResource("CircleShape2D_dmpok")

@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=3 uid="uid://rbcy420ok4yj"]
+
+[ext_resource type="Script" uid="uid://ctviatbho82dw" path="res://Scripts/spirit_projectile.gd" id="1_4jx06"]
+[ext_resource type="Texture2D" uid="uid://dlgwdi40o4u3l" path="res://Assets/Mobs/nuno/fireball/fireball1.png" id="2_iwa1q"]
+[ext_resource type="Texture2D" uid="uid://cb7suxnr83gx2" path="res://Assets/Mobs/nuno/fireball/fireball2.png" id="3_khtqc"]
+[ext_resource type="Texture2D" uid="uid://d8bqcvg832ew" path="res://Assets/Mobs/nuno/fireball/fireball3.png" id="4_yx6g8"]
+[ext_resource type="Texture2D" uid="uid://bjnyro6njhvjs" path="res://Assets/Mobs/nuno/fireball/fireball4.png" id="5_mro3p"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fc30t"]
+radius = 6.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x4626"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_iwa1q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_khtqc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_yx6g8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_mro3p")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Environment" id="Environment_iwa1q"]
+background_mode = 3
+glow_enabled = true
+glow_blend_mode = 1
+
+[node name="Area2D" type="Area2D"]
+z_index = 5
+script = ExtResource("1_4jx06")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_fc30t")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(1.1, 1.1, 1.1, 1)
+z_index = 5
+position = Vector2(0.999999, -2)
+scale = Vector2(0.0732422, 0.0908203)
+sprite_frames = SubResource("SpriteFrames_x4626")
+autoplay = "default"
+frame_progress = 0.769156
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_iwa1q")

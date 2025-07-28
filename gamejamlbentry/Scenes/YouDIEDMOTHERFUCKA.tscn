@@ -1,0 +1,62 @@
+[gd_scene load_steps=5 format=3 uid="uid://666jmfwb8ffb"]
+
+[ext_resource type="FontFile" uid="uid://bo110nyksxkcj" path="res://Assets/dogica.ttf" id="1_5n6dy"]
+[ext_resource type="Script" uid="uid://dxmd1xc6gmdgr" path="res://Scripts/button.gd" id="1_o0rip"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_n123f"]
+font = ExtResource("1_5n6dy")
+font_size = 130
+font_color = Color(0.466667, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_o0rip"]
+font = ExtResource("1_5n6dy")
+font_size = 40
+font_color = Color(0.466667, 0, 0, 1)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1181.0
+offset_bottom = 675.0
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 76.0
+offset_top = 29.0
+offset_right = 1116.0
+offset_bottom = 338.0
+text = "You Died"
+label_settings = SubResource("LabelSettings_n123f")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 251.0
+offset_top = 195.0
+offset_right = 901.0
+offset_bottom = 402.0
+text = "Womp Womp"
+label_settings = SubResource("LabelSettings_o0rip")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 369.0
+offset_top = 352.0
+offset_right = 729.0
+offset_bottom = 509.0
+theme_override_colors/font_color = Color(0.685733, 3.10443e-06, 5.77569e-07, 1)
+theme_override_fonts/font = ExtResource("1_5n6dy")
+theme_override_font_sizes/font_size = 80
+text = "Retry"
+script = ExtResource("1_o0rip")

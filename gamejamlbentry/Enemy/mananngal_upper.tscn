@@ -1,0 +1,62 @@
+[gd_scene load_steps=9 format=3 uid="uid://b0wvgc5opiis"]
+
+[ext_resource type="Script" uid="uid://br36w8iwmchyu" path="res://Scripts/mananngal_upper.gd" id="1_eor5o"]
+[ext_resource type="Texture2D" uid="uid://c6eiaen8lll70" path="res://Assets/Mobs/manananggal-up1.png" id="1_mythe"]
+[ext_resource type="PackedScene" uid="uid://whedhdfeu7la" path="res://Enemy/manan_projectile.tscn" id="2_3bvxn"]
+[ext_resource type="PackedScene" uid="uid://ygi0h704mijm" path="res://Misc/healthbar.tscn" id="3_r77hd"]
+[ext_resource type="Texture2D" uid="uid://c8vlgwyx0jhur" path="res://Assets/Mobs/manananggal2.png" id="4_vpdvr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eor5o"]
+atlas = ExtResource("1_mythe")
+region = Rect2(0, 0, 1024, 1024)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m2g3y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eor5o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_vpdvr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r77hd"]
+radius = 76.0
+height = 166.0
+
+[node name="Mananngal_Upper" type="CharacterBody2D" groups=["Boss", "MananBoss", "minimap_objects"]]
+z_index = 2
+collision_layer = 128
+collision_mask = 128
+script = ExtResource("1_eor5o")
+projectile_scene = ExtResource("2_3bvxn")
+
+[node name="Healthbar" parent="." instance=ExtResource("3_r77hd")]
+offset_left = -73.0
+offset_top = -99.0
+offset_right = 76.0
+offset_bottom = -79.0
+max_value = 500.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(2, 6)
+scale = Vector2(0.157031, 0.156531)
+sprite_frames = SubResource("SpriteFrames_m2g3y")
+autoplay = "default"
+frame_progress = 0.775982
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3, 4)
+shape = SubResource("CapsuleShape2D_r77hd")
+
+[node name="Hitbox" type="Area2D" parent="." groups=["Boss", "Enemy", "minimap_objects"]]
+collision_layer = 128
+collision_mask = 128
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(7, 4)
+shape = SubResource("CapsuleShape2D_r77hd")

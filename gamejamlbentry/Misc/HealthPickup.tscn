@@ -1,0 +1,79 @@
+[gd_scene load_steps=12 format=3 uid="uid://d4a7ds4d21lvn"]
+
+[ext_resource type="Script" uid="uid://b5ss3kxrvvuay" path="res://Scripts/health_pickup.gd" id="1_pevhe"]
+[ext_resource type="Texture2D" uid="uid://ccsj4fl12re3h" path="res://Assets/Pickups/power-up.png" id="2_igqvx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_paute"]
+atlas = ExtResource("2_igqvx")
+region = Rect2(0, 0, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0k40i"]
+atlas = ExtResource("2_igqvx")
+region = Rect2(23, 0, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d1ebs"]
+atlas = ExtResource("2_igqvx")
+region = Rect2(46, 0, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t8uh7"]
+atlas = ExtResource("2_igqvx")
+region = Rect2(69, 0, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mpedh"]
+atlas = ExtResource("2_igqvx")
+region = Rect2(92, 0, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q2gne"]
+atlas = ExtResource("2_igqvx")
+region = Rect2(115, 0, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gp0if"]
+atlas = ExtResource("2_igqvx")
+region = Rect2(138, 0, 23, 21)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5ieh1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_paute")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0k40i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d1ebs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t8uh7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mpedh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q2gne")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gp0if")
+}],
+"loop": true,
+"name": &"default",
+"speed": 11.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qotlx"]
+radius = 7.07107
+
+[node name="HealthPickup" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_pevhe")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_5ieh1")
+autoplay = "default"
+frame_progress = 0.844164
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_qotlx")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

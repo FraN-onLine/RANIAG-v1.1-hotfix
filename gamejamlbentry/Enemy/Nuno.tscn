@@ -1,0 +1,87 @@
+[gd_scene load_steps=12 format=3 uid="uid://br806ppqkh0au"]
+
+[ext_resource type="Script" uid="uid://x3rqw51nq36c" path="res://Scripts/nuno.gd" id="1_nj0ap"]
+[ext_resource type="PackedScene" uid="uid://rbcy420ok4yj" path="res://Enemy/spirit_projectile.tscn" id="2_y4ido"]
+[ext_resource type="PackedScene" uid="uid://ygi0h704mijm" path="res://Misc/healthbar.tscn" id="2_yt78l"]
+[ext_resource type="Texture2D" uid="uid://bdebelu5slj" path="res://Assets/Mobs/nuno/nuno1.png" id="3_sjcsw"]
+[ext_resource type="Texture2D" uid="uid://hhnbwcrutgns" path="res://Assets/Mobs/nuno/nuno2.png" id="4_uvool"]
+[ext_resource type="Texture2D" uid="uid://r0g15vwjh3e0" path="res://Assets/Mobs/nuno/nuno3.png" id="5_nib8s"]
+[ext_resource type="Texture2D" uid="uid://bk03hwtnfmf2n" path="res://Assets/Mobs/nuno/nuno4.png" id="6_vv4du"]
+[ext_resource type="Texture2D" uid="uid://bvfp1bu70luqs" path="res://Assets/Mobs/nuno/nuno5.png" id="7_rv8ja"]
+[ext_resource type="Texture2D" uid="uid://bv603jsyqwy1s" path="res://Assets/Mobs/nuno/nuno6.png" id="8_jou6t"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dhpou"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_sjcsw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_uvool")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_nib8s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_vv4du")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_rv8ja")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_jou6t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_sjcsw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_sjcsw")
+}],
+"loop": true,
+"name": &"Attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_sjcsw")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nj0ap"]
+radius = 8.0
+height = 22.0
+
+[node name="Nuno" type="CharacterBody2D" groups=["Enemy", "minimap_objects"]]
+collision_layer = 15
+collision_mask = 15
+script = ExtResource("1_nj0ap")
+projectile_scene = ExtResource("2_y4ido")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 3)
+scale = Vector2(0.0292773, 0.0300708)
+sprite_frames = SubResource("SpriteFrames_dhpou")
+animation = &"Attack"
+autoplay = "Idle"
+frame_progress = 0.916097
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(-1, 3)
+shape = SubResource("CapsuleShape2D_nj0ap")
+
+[node name="Healthbar" parent="." instance=ExtResource("2_yt78l")]
+offset_left = -7.0
+offset_top = -14.0
+offset_right = 5.0
+offset_bottom = -13.0
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 3)
+shape = SubResource("CapsuleShape2D_nj0ap")

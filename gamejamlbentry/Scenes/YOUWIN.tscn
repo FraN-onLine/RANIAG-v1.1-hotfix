@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=3 uid="uid://ci3gw8msfaftv"]
+
+[ext_resource type="Script" uid="uid://dxmd1xc6gmdgr" path="res://Scripts/button.gd" id="1_6xrve"]
+[ext_resource type="FontFile" uid="uid://bo110nyksxkcj" path="res://Assets/dogica.ttf" id="1_bhdt8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_n123f"]
+font = ExtResource("1_bhdt8")
+font_size = 80
+font_color = Color(0.791421, 0.582615, 0.259287, 1)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1181.0
+offset_bottom = 675.0
+color = Color(0.314385, 0.184263, 0.0765826, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 54.0
+offset_top = 29.0
+offset_right = 1028.0
+offset_bottom = 338.0
+text = "You saved
+Raniag ig"
+label_settings = SubResource("LabelSettings_n123f")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 369.0
+offset_top = 352.0
+offset_right = 729.0
+offset_bottom = 509.0
+theme_override_colors/font_color = Color(0.528177, 0.422499, 0.210433, 1)
+theme_override_fonts/font = ExtResource("1_bhdt8")
+theme_override_font_sizes/font_size = 80
+text = "Main"
+script = ExtResource("1_6xrve")

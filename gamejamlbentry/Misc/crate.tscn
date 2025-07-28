@@ -1,0 +1,89 @@
+[gd_scene load_steps=19 format=3 uid="uid://jwjil10bp37d"]
+
+[ext_resource type="Script" uid="uid://dh4vlvwdyt8ny" path="res://Scripts/crate.gd" id="1_uep05"]
+[ext_resource type="PackedScene" uid="uid://b5pycbqowldip" path="res://Misc/atk_pickup.tscn" id="2_jxsil"]
+[ext_resource type="Texture2D" uid="uid://bgvferbsyavxw" path="res://Assets/Explosions/48x48 - SmallExplosion2Frame1.png" id="2_mnton"]
+[ext_resource type="Texture2D" uid="uid://ctdoffu6a3hwb" path="res://Assets/Explosions/48x48 - SmallExplosion2Frame2.png" id="3_fni7i"]
+[ext_resource type="PackedScene" uid="uid://d4a7ds4d21lvn" path="res://Misc/HealthPickup.tscn" id="3_mvv0i"]
+[ext_resource type="Texture2D" uid="uid://dl6sfoy7ap5b1" path="res://Assets/Explosions/48x48 - SmallExplosion2Frame3.png" id="4_fx5kc"]
+[ext_resource type="PackedScene" uid="uid://t3wjyimjd53k" path="res://Misc/SpeedPickup.tscn" id="4_hv0mi"]
+[ext_resource type="Texture2D" uid="uid://c734kmaus81x0" path="res://Assets/Explosions/48x48 - SmallExplosion2Frame4.png" id="5_1gw07"]
+[ext_resource type="Texture2D" uid="uid://bp3fjb5kck483" path="res://Assets/Explosions/48x48 - SmallExplosion2Frame5.png" id="6_gwvh5"]
+[ext_resource type="Texture2D" uid="uid://cd2unconmvriy" path="res://Assets/Explosions/48x48 - SmallExplosion2Frame6.png" id="7_opwjn"]
+[ext_resource type="Texture2D" uid="uid://c3nmgmx5ytap4" path="res://Assets/Explosions/48x48 - SmallExplosion2Frame7.png" id="8_k7egd"]
+[ext_resource type="Texture2D" uid="uid://dgam3ppfxg5mn" path="res://Assets/Explosions/48x48 - SmallExplosion2Frame8.png" id="9_5rxmt"]
+[ext_resource type="Texture2D" uid="uid://dn7soo287vfde" path="res://Assets/Barrel 0011.png" id="10_3f81t"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wwum0"]
+height = 28.0
+
+[sub_resource type="Animation" id="Animation_xqcdq"]
+resource_name = "explosion"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pmomh"]
+_data = {
+&"explosion": SubResource("Animation_xqcdq")
+}
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l6c0k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_mnton")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_fni7i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_fx5kc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_1gw07")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_gwvh5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_opwjn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_k7egd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_5rxmt")
+}],
+"loop": false,
+"name": &"explode",
+"speed": 8.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nwvl4"]
+height = 28.0
+
+[node name="crate" type="CharacterBody2D"]
+script = ExtResource("1_uep05")
+atk_pickup_scene = ExtResource("2_jxsil")
+health_pickup_scene = ExtResource("3_mvv0i")
+speed_pickup_scene = ExtResource("4_hv0mi")
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CapsuleShape2D_wwum0")
+
+[node name="Sprite2D" type="Sprite2D" parent="Hitbox"]
+texture = ExtResource("10_3f81t")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Hitbox"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_pmomh")
+}
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Hitbox"]
+sprite_frames = SubResource("SpriteFrames_l6c0k")
+animation = &"explode"
+frame_progress = 0.0704659
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_nwvl4")

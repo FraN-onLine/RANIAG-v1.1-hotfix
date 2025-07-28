@@ -1,0 +1,68 @@
+[gd_scene load_steps=9 format=3 uid="uid://donc5nia1q2wn"]
+
+[ext_resource type="Script" uid="uid://d2fdxaqonnpib" path="res://Scripts/third_creature.gd" id="1_pv7c6"]
+[ext_resource type="PackedScene" uid="uid://ygi0h704mijm" path="res://Misc/healthbar.tscn" id="2_pv7c6"]
+[ext_resource type="PackedScene" uid="uid://dj6sosj2h8uwk" path="res://Enemy/homing_projectile.tscn" id="2_thbbj"]
+[ext_resource type="Texture2D" uid="uid://cbdtuk74r34ps" path="res://Assets/Mobs/tiyanak/tiyanak1.png" id="3_yym6h"]
+[ext_resource type="Texture2D" uid="uid://brjmv0wqim87r" path="res://Assets/Mobs/tiyanak/tiyanak2.png" id="4_as6ne"]
+[ext_resource type="Texture2D" uid="uid://dqenmmv3rpm6f" path="res://Assets/Mobs/tiyanak/tiyanak3.png" id="5_yym6h"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o7d5a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_yym6h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_as6ne")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_yym6h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_as6ne")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_yym6h")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yym6h"]
+radius = 9.0
+height = 18.0
+
+[node name="thirdCreature" type="CharacterBody2D" groups=["Enemy", "minimap_objects"]]
+collision_layer = 15
+collision_mask = 15
+script = ExtResource("1_pv7c6")
+projectile_scene = ExtResource("2_thbbj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["minimap_objects"]]
+position = Vector2(0, -1)
+scale = Vector2(0.0460625, 0.0470391)
+sprite_frames = SubResource("SpriteFrames_o7d5a")
+animation = &"attack"
+autoplay = "idle"
+frame_progress = 0.920627
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CapsuleShape2D_yym6h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_yym6h")
+
+[node name="Healthbar" parent="." instance=ExtResource("2_pv7c6")]
+offset_left = -6.0
+offset_top = -12.0
+offset_right = 6.0
+offset_bottom = -11.0

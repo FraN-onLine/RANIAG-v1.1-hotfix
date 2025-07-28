@@ -1,0 +1,90 @@
+[gd_scene load_steps=7 format=3 uid="uid://y4o5dfu5t2cb"]
+
+[ext_resource type="Texture2D" uid="uid://0wgogn6roqpu" path="res://Assets/Weapons/Sword_2.png" id="1_cjxhi"]
+[ext_resource type="Script" uid="uid://cgsl45pc5jxsi" path="res://Scripts/myhitbox.gd" id="2_ls883"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xyq3p"]
+radius = 7.69682
+height = 56.3145
+
+[sub_resource type="Animation" id="Animation_7nl6n"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(5, -17)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.30226]
+}
+
+[sub_resource type="Animation" id="Animation_41fg3"]
+resource_name = "attack"
+length = 0.2345
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.166667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(5, -17), Vector2(22, -2), Vector2(21, 23)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.166667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-1.30226, -0.571087, 0.440133]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ub1kh"]
+_data = {
+&"RESET": SubResource("Animation_7nl6n"),
+&"attack": SubResource("Animation_41fg3")
+}
+
+[node name="Weapon" type="Node2D"]
+position = Vector2(5, -17)
+rotation = -1.30226
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_cjxhi")
+
+[node name="myHitbox" type="Area2D" parent="Sprite2D"]
+script = ExtResource("2_ls883")
+metadata/_custom_type_script = "uid://cgsl45pc5jxsi"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/myHitbox"]
+position = Vector2(15, 5)
+rotation = 1.87344
+shape = SubResource("CapsuleShape2D_xyq3p")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ub1kh")
+}

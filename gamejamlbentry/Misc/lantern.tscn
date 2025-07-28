@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://dy5k0nwn1saw2"]
+
+[ext_resource type="Texture2D" uid="uid://dgqbnsj3wmb45" path="res://Assets/lantern/lantern1.png" id="1_3y85j"]
+[ext_resource type="Texture2D" uid="uid://bq6n1o56cr5ix" path="res://Assets/lantern/lantern2.png" id="2_lmuq6"]
+[ext_resource type="Texture2D" uid="uid://dw7a5ivnaytdp" path="res://Assets/lantern/lantern3.png" id="3_kli6d"]
+[ext_resource type="Texture2D" uid="uid://lclr8jgys3r3" path="res://Assets/lantern/lantern4.png" id="4_3w1e2"]
+[ext_resource type="Texture2D" uid="uid://co18k8phtl6gb" path="res://Assets/2d_lights_and_shadows_neutral_point_light.webp" id="5_lmuq6"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4rqul"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_3y85j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_lmuq6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_kli6d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_3w1e2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[node name="Lantern" type="AnimatedSprite2D"]
+z_index = 6
+scale = Vector2(0.15, 0.15)
+sprite_frames = SubResource("SpriteFrames_4rqul")
+autoplay = "default"
+frame_progress = 0.756531
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+modulate = Color(0.676, 0.691, 0.304, 0.762)
+position = Vector2(6.66675, 0)
+scale = Vector2(3.15885, 2.98958)
+texture = ExtResource("5_lmuq6")

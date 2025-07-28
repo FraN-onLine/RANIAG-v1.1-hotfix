@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://whedhdfeu7la"]
+
+[ext_resource type="Script" uid="uid://cq8fk7fc82fg0" path="res://Scripts/manan_projectile.gd" id="1_1ouqu"]
+[ext_resource type="Texture2D" uid="uid://csr78n2ocuj7k" path="res://Assets/PROJECTORRR.png" id="2_qc7qs"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fc30t"]
+radius = 7.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n7obe"]
+atlas = ExtResource("2_qc7qs")
+region = Rect2(0, 128, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ntxk3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n7obe")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Environment" id="Environment_qc7qs"]
+background_mode = 3
+glow_enabled = true
+glow_blend_mode = 1
+
+[node name="Area2D" type="Area2D"]
+z_index = 5
+script = ExtResource("1_1ouqu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_fc30t")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(1.1, 1.1, 1.1, 1)
+z_index = 5
+sprite_frames = SubResource("SpriteFrames_ntxk3")
+frame_progress = 0.922522
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_qc7qs")

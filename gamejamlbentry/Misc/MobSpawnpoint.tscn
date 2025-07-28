@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvk2uu0joow45"]
+
+[ext_resource type="Script" uid="uid://doqwq8v28rw0" path="res://Scripts/MobSpawnpoint.gd" id="1_qs77q"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6376i"]
+size = Vector2(71.5, 55.5)
+
+[node name="MobSpawnpoint" type="Area2D"]
+collision_layer = 8
+collision_mask = 8
+script = ExtResource("1_qs77q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_6376i")
+
+[node name="Spawnpoint" type="Node2D" parent="."]

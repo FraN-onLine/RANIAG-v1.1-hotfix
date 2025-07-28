@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://dj5rgvavsc5qx"]
+
+[ext_resource type="Texture2D" uid="uid://0wgogn6roqpu" path="res://Assets/Weapons/Sword_2.png" id="1_6wdhb"]
+[ext_resource type="Script" uid="uid://qwcvxtuy3peo" path="res://Scripts/Hitbox.gd" id="2_d6wag"]
+
+[sub_resource type="GDScript" id="GDScript_6wdhb"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ly6k5"]
+radius = 5.37892
+height = 18.9726
+
+[node name="Sword" type="Node2D"]
+script = SubResource("GDScript_6wdhb")
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+position = Vector2(5.55556, 1.17647)
+scale = Vector2(0.250387, 0.250387)
+texture = ExtResource("1_6wdhb")
+
+[node name="Hitbox" type="Area2D" parent="Node2D/Sprite2D"]
+visible = false
+position = Vector2(-21.3004, -4.69861)
+scale = Vector2(0.887515, 0.939722)
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("2_d6wag")
+metadata/_custom_type_script = "uid://qwcvxtuy3peo"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Sprite2D/Hitbox"]
+position = Vector2(28, 5)
+rotation = 1.90314
+shape = SubResource("CapsuleShape2D_ly6k5")
