@@ -1553,8 +1553,8 @@ glow_blend_mode = 1
 modulate = Color(1.1, 1.1, 1.1, 1)
 self_modulate = Color(1.1, 1.1, 1.1, 1)
 y_sort_enabled = true
-collision_layer = 10
-collision_mask = 13
+collision_layer = 32778
+collision_mask = 32781
 script = ExtResource("1_schp4")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -1565,8 +1565,8 @@ animation = &"death3"
 
 [node name="HitBox" type="Area2D" parent="."]
 disable_mode = 2
-collision_layer = 143
-collision_mask = 143
+collision_layer = 32911
+collision_mask = 32911
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 shape = SubResource("CapsuleShape2D_713gb")

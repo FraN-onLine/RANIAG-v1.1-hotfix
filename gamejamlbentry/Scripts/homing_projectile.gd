@@ -8,8 +8,6 @@ var direction: Vector2 = Vector2.RIGHT
 func _ready():
 	connect("area_entered", Callable(self, "_on_area_entered"))
 	
-	
-
 func _process(delta):
 	if target and is_instance_valid(target):
 		var desired = (target.global_position - global_position).normalized()
@@ -19,8 +17,10 @@ func _process(delta):
 
 func _on_area_entered(area):
 	# Check if the area belongs to the player
+	print("w")
 	if area.get_parent().is_in_group("Player"):
-		area.get_parent().take_damage(5)
+		print("yes")
+		area.get_parent().take_damage(2.5)
 		queue_free()
 
 func set_target(t):
