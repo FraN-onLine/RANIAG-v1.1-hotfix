@@ -1730,7 +1730,7 @@ volume_db = -20.0
 stream = ExtResource("35_536cc")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-modulate = Color(0, 0, 0, 0.581)
+modulate = Color(0, 0, 0, 0.917)
 z_index = 5
 offset_left = -1773.0
 offset_top = -4072.0

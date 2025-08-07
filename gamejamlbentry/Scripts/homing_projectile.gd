@@ -4,11 +4,17 @@ extends Area2D
 @export var turn_speed: float = 8.0 # Higher = curves faster
 var target: Node2D = null
 var direction: Vector2 = Vector2.RIGHT
+var disappear_timer = 0
 
 func _ready():
 	connect("area_entered", Callable(self, "_on_area_entered"))
 	
 func _process(delta):
+	disappear_timer += delta
+	
+	if disappear_timer > 5:
+		queue_free()
+	
 	if target and is_instance_valid(target):
 		var desired = (target.global_position - global_position).normalized()
 		# Curve: interpolate direction toward desired direction
