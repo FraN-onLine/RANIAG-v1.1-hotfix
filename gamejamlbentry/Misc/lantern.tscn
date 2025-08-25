@@ -13,17 +13,26 @@ animations = [{
 "texture": ExtResource("1_3y85j")
 }, {
 "duration": 1.0,
+"texture": ExtResource("3_kli6d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_lmuq6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_3w1e2")
+}, {
+"duration": 1.0,
 "texture": ExtResource("2_lmuq6")
 }, {
 "duration": 1.0,
 "texture": ExtResource("3_kli6d")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_3w1e2")
+"texture": ExtResource("1_3y85j")
 }],
 "loop": true,
 "name": &"default",
-"speed": 4.0
+"speed": 6.0
 }]
 
 [node name="Lantern" type="AnimatedSprite2D"]
@@ -31,7 +40,7 @@ z_index = 6
 scale = Vector2(0.15, 0.15)
 sprite_frames = SubResource("SpriteFrames_4rqul")
 autoplay = "default"
-frame_progress = 0.756531
+frame_progress = 0.0596854
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 modulate = Color(0.676, 0.691, 0.304, 0.762)

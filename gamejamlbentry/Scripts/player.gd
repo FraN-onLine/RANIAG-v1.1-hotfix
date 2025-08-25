@@ -16,7 +16,7 @@ var attacking = false
 var is_dead = false
 var stage = 1
 var death_position: Vector2
-@export var base_attack: float = 6.5
+@export var base_attack: float = 6.6
 var speed: float = base_speed
 var attack_damage: int = base_attack
 var is_invulnerable: bool = false
