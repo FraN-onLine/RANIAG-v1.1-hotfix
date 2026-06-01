@@ -9,8 +9,8 @@ signal healthChanged
 @export var detection_radius: float = 60.0
 
 var minimap_icon = "mob"
-var max_health = 55
-var health = 55
+var max_health = 45
+var health = 45
 var roam_direction = Vector2.RIGHT
 var roam_timer = 0.0
 var run_away_timer = 0.0
