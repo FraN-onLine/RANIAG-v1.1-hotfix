@@ -18,5 +18,9 @@ PPS: Found out may I-frame ung dash lols
 - Win Screen now anchored and resized with the screen  
 - Buffed player dmg by 1.5% (wow)  
 - Environmental additions  
+  
+# Raniag v 1.1  
+- Barriers texture change  
+- Spirit nerf  
 
 PPS: updating raniag is a nightmare because wtf is this directory structure?  
