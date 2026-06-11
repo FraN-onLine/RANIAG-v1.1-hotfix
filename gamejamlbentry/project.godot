@@ -24,6 +24,10 @@ config/icon="res://icon.svg"
 Global="*res://Scripts/global.gd"
 GameState="*res://Scripts/GameState.gd"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/virtual_joystick/plugin.cfg")
+
 [global_group]
 
 Enemy="Agressive Mobs"
@@ -31,6 +35,7 @@ Player="Player"
 Boss=""
 minimap_objects=""
 MananBoss=""
+joystick=""
 
 [input]
 

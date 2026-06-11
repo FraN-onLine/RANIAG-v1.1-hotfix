@@ -43,6 +43,8 @@ var can_dash := true
 var revive_played = false
 var time_since_death = 0.0
 
+@onready var joystick = get_tree().get_first_node_in_group("joystick")
+
 func _ready():
 	health = max_health
 	is_dead = false
@@ -66,6 +68,7 @@ func setup_healthbar():
 		print("Healthbar not found! Make sure it's in a CanvasLayer and added to 'healthbar' group.")
 
 func _process(delta):
+	
 	if recharge_in_progress:
 		dash_recharge_timer -= delta
 		if dash_recharge_timer <= 0.0:
@@ -107,16 +110,27 @@ func _process(delta):
 		return
 
 	# Normal movement
-	var input_vector = Vector2.ZERO
-	input_vector.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
-	input_vector.y = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
 
-	input_vector = input_vector.normalized() * speed if input_vector.length() > 0 else Vector2.ZERO
-	velocity = input_vector
-	move_and_slide()
+	if OS.has_feature("mobile"):
+		var direction = joystick.output
 
-	if input_vector.x != 0:
-		$AnimatedSprite2D.flip_h = input_vector.x < 0
+
+		velocity = direction * speed
+		move_and_slide()
+		
+		if direction.x != 0:
+			$AnimatedSprite2D.flip_h = direction.x < 0
+	else:
+		var input_vector = Vector2.ZERO
+		input_vector.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
+		input_vector.y = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
+
+		input_vector = input_vector.normalized() * speed if input_vector.length() > 0 else Vector2.ZERO
+		velocity = input_vector
+		move_and_slide()
+
+		if input_vector.x != 0:
+			$AnimatedSprite2D.flip_h = input_vector.x < 0
 
 	# Aim hand toward mouse
 	var arrow = $Hand
