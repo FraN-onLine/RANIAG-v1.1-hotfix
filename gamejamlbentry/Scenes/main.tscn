@@ -1148,9 +1148,14 @@ action = "dash"
 
 [node name="Joystick" type="Control" parent="MobileUI" unique_id=1875081324 groups=["joystick"]]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchor_left = 0.108
+anchor_top = 0.781
+anchor_right = 0.108
+anchor_bottom = 0.781
+offset_left = -124.416
+offset_top = -507.088
+offset_right = -84.416
+offset_bottom = -466.088
 script = ExtResource("3_nwwfm")
 
 [node name="Knob" type="TextureRect" parent="MobileUI/Joystick" unique_id=810476299]

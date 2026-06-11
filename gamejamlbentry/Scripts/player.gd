@@ -159,18 +159,6 @@ func _input(event):
 	if is_dead:
 		return
 
-	# Separated Basic Attack
-	if event.is_action_pressed("basic_attack") and not is_dashing:
-		attacking = true
-		if is_instance_valid(weapon_hitbox):
-			weapon_hitbox.monitoring = true
-		$Hand/Node2D/AnimatedSprite2D.play("attack")
-		#sword_slash.play()
-	elif event.is_action_released("basic_attack"):
-		attacking = false
-		if is_instance_valid(weapon_hitbox):
-			weapon_hitbox.monitoring = false
-
 	# Separated Dash
 	if event.is_action_pressed("dash") and dash_charges > 0:
 		var input_vector = Vector2(
@@ -193,6 +181,21 @@ func _input(event):
 				recharge_in_progress = true
 				dash_recharge_timer = dash_cooldown
 			
+func _unhandled_input(event):
+	if is_dead:
+		return
+
+	# Separated Basic Attack
+	if event.is_action_pressed("basic_attack") and not is_dashing:
+		attacking = true
+		if is_instance_valid(weapon_hitbox):
+			weapon_hitbox.monitoring = true
+		$Hand/Node2D/AnimatedSprite2D.play("attack")
+		#sword_slash.play()
+	elif event.is_action_released("basic_attack"):
+		attacking = false
+		if is_instance_valid(weapon_hitbox):
+			weapon_hitbox.monitoring = false
 
 func set_damage(amount):
 	if has_node("Hand/Node2D/Sprite2D/Area2D"):
