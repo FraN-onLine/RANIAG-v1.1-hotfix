@@ -24,6 +24,10 @@ config/icon="res://icon.svg"
 Global="*res://Scripts/global.gd"
 GameState="*res://Scripts/GameState.gd"
 
+[display]
+
+window/stretch/mode="canvas_items"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/virtual_joystick/plugin.cfg")

@@ -111,7 +111,7 @@ func _process(delta):
 
 	# Normal movement
 
-	if OS.has_feature("mobile"):
+	if DisplayServer.is_touchscreen_available():
 		var direction = joystick.output
 
 

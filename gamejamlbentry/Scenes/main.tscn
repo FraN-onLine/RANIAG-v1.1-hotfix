@@ -1213,7 +1213,6 @@ vertical_alignment = 1
 script = ExtResource("6_7k868")
 
 [node name="Ground" type="TileMap" parent="." unique_id=1565552648]
-visible = false
 y_sort_enabled = true
 tile_set = SubResource("TileSet_6bp64")
 format = 2
