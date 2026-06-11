@@ -1754,7 +1754,7 @@ offset_left = -1623.0
 offset_top = -4476.0
 offset_right = 2464.0
 offset_bottom = 1042.0
-color = Color(0, 0, 0, 0.939)
+color = Color(0.03876, 0.03876, 0.03876, 0.5)
 metadata/_edit_lock_ = true
 
 [node name="third" type="AudioStreamPlayer" parent="." unique_id=1976899932]

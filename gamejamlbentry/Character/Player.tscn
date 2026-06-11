@@ -1,4 +1,4 @@
-[gd_scene load_steps=207 format=3 uid="uid://dcsk8ndtlfdua"]
+[gd_scene format=3 uid="uid://dcsk8ndtlfdua"]
 
 [ext_resource type="Script" uid="uid://clattwm6yiw4g" path="res://Scripts/player.gd" id="1_schp4"]
 [ext_resource type="Texture2D" uid="uid://lh2kdqsidt7a" path="res://Assets/testting aj (1).png" id="2_ssuvf"]
@@ -1547,9 +1547,8 @@ height = 20.0
 [sub_resource type="Environment" id="Environment_dvofn"]
 background_mode = 3
 glow_enabled = true
-glow_blend_mode = 1
 
-[node name="Player" type="CharacterBody2D" groups=["Player", "minimap_objects"]]
+[node name="Player" type="CharacterBody2D" unique_id=1250518673 groups=["Player", "minimap_objects"]]
 modulate = Color(1.1, 1.1, 1.1, 1)
 self_modulate = Color(1.1, 1.1, 1.1, 1)
 z_index = 1
@@ -1558,58 +1557,58 @@ collision_layer = 32778
 collision_mask = 32781
 script = ExtResource("1_schp4")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1893098521]
 modulate = Color(1.1, 1.1, 1.1, 1)
 self_modulate = Color(1.1, 1.1, 1.1, 1)
 sprite_frames = SubResource("SpriteFrames_pusnx")
 animation = &"death3"
 
-[node name="HitBox" type="Area2D" parent="."]
+[node name="HitBox" type="Area2D" parent="." unique_id=1043890610]
 disable_mode = 2
 collision_layer = 32911
 collision_mask = 32911
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=1804074536]
 shape = SubResource("CapsuleShape2D_713gb")
 
-[node name="Camera2D" type="Camera2D" parent="." groups=["Player", "minimap_objects"]]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=928632059 groups=["Player", "minimap_objects"]]
 zoom = Vector2(3, 3)
 
-[node name="Hand" type="Sprite2D" parent="."]
+[node name="Hand" type="Sprite2D" parent="." unique_id=674051601]
 position = Vector2(9.53674e-07, -4.76837e-07)
 rotation = -0.058192
 scale = Vector2(4.5, 4.25)
 offset = Vector2(3.5, 0)
 script = SubResource("GDScript_ssuvf")
 
-[node name="Node2D" type="Node2D" parent="Hand"]
+[node name="Node2D" type="Node2D" parent="Hand" unique_id=1938816655]
 position = Vector2(-2.12799, -1.78112)
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Hand/Node2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Hand/Node2D" unique_id=2026858752]
 position = Vector2(5.39106, 3.16087)
 rotation = 0.0557467
 scale = Vector2(0.228328, 0.228328)
 sprite_frames = SubResource("SpriteFrames_ly6k5")
 animation = &"attack"
 
-[node name="weaponHitbox" type="Area2D" parent="Hand/Node2D/AnimatedSprite2D"]
+[node name="weaponHitbox" type="Area2D" parent="Hand/Node2D/AnimatedSprite2D" unique_id=867728437]
 position = Vector2(0, -1.90735e-06)
 collision_layer = 0
 collision_mask = 255
 script = ExtResource("4_dvofn")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/Node2D/AnimatedSprite2D/weaponHitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/Node2D/AnimatedSprite2D/weaponHitbox" unique_id=1742498958]
 position = Vector2(14.592, -12.2783)
 rotation = -0.0133117
 shape = SubResource("CapsuleShape2D_ly6k5")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=930715572]
 shape = SubResource("CapsuleShape2D_pusnx")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1368144909]
 environment = SubResource("Environment_dvofn")
 
-[node name="SwordSlash" type="AudioStreamPlayer2D" parent="."]
+[node name="SwordSlash" type="AudioStreamPlayer2D" parent="." unique_id=935177577]
 stream = ExtResource("7_5ydrh")
 
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]

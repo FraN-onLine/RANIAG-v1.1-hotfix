@@ -19,8 +19,11 @@ PPS: Found out may I-frame ung dash lols
 - Buffed player dmg by 1.5% (wow)  
 - Environmental additions  
   
-# Raniag v 1.1  
+# Raniag v 1.1.04  
 - Barriers texture change  
 - Spirit nerf  
+
+# Raniag v 1.1.05
+- Visual Enhancement where Sword no longer stays on respawn animation
 
 PPS: updating raniag is a nightmare because wtf is this directory structure?  

@@ -199,6 +199,7 @@ func take_damage(damage):
 		death_position = position
 
 		$AnimatedSprite2D.play("death%d" % stage)
+		$Hand.visible = false
 		revive_played = false
 		time_since_death = 0.0
 
@@ -225,6 +226,7 @@ func take_damage(damage):
 			healthbar.init_health(max_health)
 
 		await get_tree().create_timer(5.0).timeout
+		$Hand.visible = true
 
 		if GameState.lives > 0 and stage <= 5:
 			respawn()
