@@ -45,6 +45,7 @@ var time_since_death = 0.0
 var _attack_touch_index := -1
 
 @onready var joystick = get_tree().get_first_node_in_group("joystick")
+@onready var mobile_ui: CanvasLayer = get_node_or_null("../MobileUI")
 
 func _ready():
 	health = max_health
@@ -143,7 +144,7 @@ func play_revive_animation():
 	revive_played = true
 
 func _get_movement_direction() -> Vector2:
-	if DisplayServer.is_touchscreen_available() and is_instance_valid(joystick):
+	if _is_mobile_controls_active() and is_instance_valid(joystick):
 		var joy_dir: Vector2 = joystick.output
 		if joy_dir.length() > 0.01:
 			return joy_dir.normalized()
@@ -155,6 +156,9 @@ func _get_movement_direction() -> Vector2:
 	if input_vector.length() > 0.01:
 		return input_vector.normalized()
 	return Vector2.ZERO
+
+func _is_mobile_controls_active() -> bool:
+	return is_instance_valid(mobile_ui) and mobile_ui.visible
 
 func _get_dash_direction() -> Vector2:
 	var move_dir := _get_movement_direction()

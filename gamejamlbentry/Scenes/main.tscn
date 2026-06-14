@@ -1142,6 +1142,7 @@ y_sort_enabled = true
 script = ExtResource("1_kwxat")
 
 [node name="MobileUI" type="CanvasLayer" parent="." unique_id=1534876073]
+layer = 10
 
 [node name="TouchScreenButton" type="TouchScreenButton" parent="MobileUI" unique_id=1003207289]
 position = Vector2(958, 461)

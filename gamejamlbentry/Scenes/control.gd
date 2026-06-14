@@ -4,74 +4,65 @@ extends Control
 
 var output := Vector2.ZERO
 
-var _dragging := false
-var _pointer_index := -1
+var _active := false
+var _pointer_id := -1
 
 func _ready() -> void:
 	mouse_filter = MOUSE_FILTER_STOP
 	knob.mouse_filter = MOUSE_FILTER_IGNORE
-	_center_knob()
+	if has_node("Base"):
+		$Base.mouse_filter = MOUSE_FILTER_IGNORE
+	custom_minimum_size = Vector2(200, 200)
+	call_deferred("_center_knob")
 
 func _notification(what: int) -> void:
-	if what == NOTIFICATION_RESIZED and not _dragging:
+	if what == NOTIFICATION_RESIZED and not _active:
 		_center_knob()
 
-func _input(event: InputEvent) -> void:
-	if not is_visible_in_tree():
-		return
-
+func _gui_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
-		_handle_press(event.pressed, event.position, event.index)
+		_handle_pointer(event.pressed, event.position, event.index)
 	elif event is InputEventScreenDrag:
-		if _dragging and event.index == _pointer_index:
-			_handle_drag(event.position)
-			get_viewport().set_input_as_handled()
+		if _active and event.index == _pointer_id:
+			_move_knob(event.position)
+			accept_event()
 	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		_handle_press(event.pressed, event.position, -1)
-	elif event is InputEventMouseMotion and _dragging and _pointer_index == -1:
-		_handle_drag(event.position)
-		get_viewport().set_input_as_handled()
+		_handle_pointer(event.pressed, event.position, -1)
+	elif event is InputEventMouseMotion and _active and _pointer_id == -1:
+		_move_knob(event.position)
+		accept_event()
 
-func _handle_press(pressed: bool, screen_pos: Vector2, index: int) -> void:
+func _handle_pointer(pressed: bool, local_pos: Vector2, pointer_id: int) -> void:
 	if pressed:
-		if not _is_inside(screen_pos):
-			return
-		_dragging = true
-		_pointer_index = index
-		_handle_drag(screen_pos)
-		get_viewport().set_input_as_handled()
-	elif _dragging and index == _pointer_index:
+		_active = true
+		_pointer_id = pointer_id
+		_move_knob(local_pos)
+		accept_event()
+	elif _active and pointer_id == _pointer_id:
 		_reset()
-		get_viewport().set_input_as_handled()
-
-func _handle_drag(screen_pos: Vector2) -> void:
-	var local_pos := get_global_transform().affine_inverse() * screen_pos
-	_apply_stick(local_pos)
-
-func _is_inside(screen_pos: Vector2) -> bool:
-	var local_pos := get_global_transform().affine_inverse() * screen_pos
-	return get_rect().has_point(local_pos)
+		accept_event()
 
 func _center() -> Vector2:
 	return size * 0.5
 
-func _max_distance() -> float:
-	return maxf(min(size.x, size.y) * 0.5 - knob.size.x * 0.25, 24.0)
+func _max_radius() -> float:
+	return maxf(minf(size.x, size.y) * 0.42, 30.0)
 
-func _apply_stick(local_pos: Vector2) -> void:
+func _move_knob(local_pos: Vector2) -> void:
 	var center := _center()
 	var offset := local_pos - center
-	var max_dist := _max_distance()
-	if offset.length() > max_dist:
-		offset = offset.normalized() * max_dist
+	var max_radius := _max_radius()
+	if offset.length() > max_radius:
+		offset = offset.normalized() * max_radius
 	knob.position = center + offset - knob.size * 0.5
-	output = offset / max_dist if max_dist > 0.0 else Vector2.ZERO
+	output = offset / max_radius if max_radius > 0.0 else Vector2.ZERO
 
 func _reset() -> void:
-	_dragging = false
-	_pointer_index = -1
-	_center_knob()
+	_active = false
+	_pointer_id = -1
 	output = Vector2.ZERO
+	_center_knob()
 
 func _center_knob() -> void:
-	knob.position = _center() - knob.size * 0.5
+	if is_instance_valid(knob):
+		knob.position = _center() - knob.size * 0.5
