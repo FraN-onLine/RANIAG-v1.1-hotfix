@@ -1,6 +1,9 @@
 extends Node2D
 
 @onready var mobile_ui = $MobileUI
+@onready var dash_button: TouchScreenButton = $MobileUI/TouchScreenButton
 
 func _ready():
-	mobile_ui.visible = DisplayServer.is_touchscreen_available()
+	var is_mobile := DisplayServer.is_touchscreen_available()
+	mobile_ui.visible = is_mobile
+	

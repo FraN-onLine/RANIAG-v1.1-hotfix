@@ -42,6 +42,7 @@ var can_dash := true
 # Revive animation control
 var revive_played = false
 var time_since_death = 0.0
+var _attack_touch_index := -1
 
 @onready var joystick = get_tree().get_first_node_in_group("joystick")
 
@@ -111,26 +112,12 @@ func _process(delta):
 
 	# Normal movement
 
-	if DisplayServer.is_touchscreen_available():
-		var direction = joystick.output
+	var move_direction := _get_movement_direction()
+	velocity = move_direction * speed
+	move_and_slide()
 
-
-		velocity = direction * speed
-		move_and_slide()
-		
-		if direction.x != 0:
-			$AnimatedSprite2D.flip_h = direction.x < 0
-	else:
-		var input_vector = Vector2.ZERO
-		input_vector.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
-		input_vector.y = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
-
-		input_vector = input_vector.normalized() * speed if input_vector.length() > 0 else Vector2.ZERO
-		velocity = input_vector
-		move_and_slide()
-
-		if input_vector.x != 0:
-			$AnimatedSprite2D.flip_h = input_vector.x < 0
+	if move_direction.x != 0:
+		$AnimatedSprite2D.flip_h = move_direction.x < 0
 
 	# Aim hand toward mouse
 	var arrow = $Hand
@@ -155,17 +142,32 @@ func play_revive_animation():
 	$AnimatedSprite2D.play("revive%d" % stage)
 	revive_played = true
 
+func _get_movement_direction() -> Vector2:
+	if DisplayServer.is_touchscreen_available() and is_instance_valid(joystick):
+		var joy_dir: Vector2 = joystick.output
+		if joy_dir.length() > 0.01:
+			return joy_dir.normalized()
+
+	var input_vector := Vector2(
+		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
+		Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
+	)
+	if input_vector.length() > 0.01:
+		return input_vector.normalized()
+	return Vector2.ZERO
+
+func _get_dash_direction() -> Vector2:
+	var move_dir := _get_movement_direction()
+	if move_dir != Vector2.ZERO:
+		return move_dir
+	return Vector2.LEFT if $AnimatedSprite2D.flip_h else Vector2.RIGHT
+
 func _input(event):
 	if is_dead:
 		return
 
-	# Separated Dash
 	if event.is_action_pressed("dash") and dash_charges > 0:
-		var input_vector = Vector2(
-			Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
-			Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
-		).normalized()
-
+		var input_vector := _get_dash_direction()
 		if input_vector != Vector2.ZERO:
 			is_dashing = true
 			dash_timer = dash_time
@@ -180,22 +182,79 @@ func _input(event):
 			if dash_charges == 0 and not recharge_in_progress:
 				recharge_in_progress = true
 				dash_recharge_timer = dash_cooldown
-			
-func _unhandled_input(event):
-	if is_dead:
 		return
 
-	# Separated Basic Attack
+	if _is_event_over_ui(event):
+		return
+
 	if event.is_action_pressed("basic_attack") and not is_dashing:
-		attacking = true
-		if is_instance_valid(weapon_hitbox):
-			weapon_hitbox.monitoring = true
-		$Hand/Node2D/AnimatedSprite2D.play("attack")
-		#sword_slash.play()
+		_start_attack()
 	elif event.is_action_released("basic_attack"):
-		attacking = false
-		if is_instance_valid(weapon_hitbox):
-			weapon_hitbox.monitoring = false
+		_stop_attack()
+	elif event is InputEventScreenTouch:
+		if event.pressed and not is_dashing:
+			_attack_touch_index = event.index
+			_start_attack()
+		elif event.index == _attack_touch_index:
+			_attack_touch_index = -1
+			_stop_attack()
+
+func _start_attack() -> void:
+	attacking = true
+	if is_instance_valid(weapon_hitbox):
+		weapon_hitbox.monitoring = true
+	$Hand/Node2D/AnimatedSprite2D.play("attack")
+
+func _stop_attack() -> void:
+	attacking = false
+	if is_instance_valid(weapon_hitbox):
+		weapon_hitbox.monitoring = false
+
+func _is_event_over_ui(event: InputEvent) -> bool:
+	var screen_pos := _get_event_screen_position(event)
+	if screen_pos == Vector2.INF:
+		return false
+	return _is_screen_position_over_ui(screen_pos)
+
+func _get_event_screen_position(event: InputEvent) -> Vector2:
+	if event is InputEventMouse:
+		return event.position
+	if event is InputEventScreenTouch or event is InputEventScreenDrag:
+		return event.position
+	return Vector2.INF
+
+func _is_screen_position_over_ui(screen_pos: Vector2) -> bool:
+	if _is_over_touch_screen_button(screen_pos):
+		return true
+	for layer_path in ["../MobileUI", "../HUD"]:
+		var layer := get_node_or_null(layer_path)
+		if layer == null or not layer.visible:
+			continue
+		if _control_tree_contains_point(layer, screen_pos):
+			return true
+	return false
+
+func _is_over_touch_screen_button(screen_pos: Vector2) -> bool:
+	var btn := get_node_or_null("../MobileUI/TouchScreenButton") as TouchScreenButton
+	if btn == null or not btn.is_visible_in_tree():
+		return false
+	var local_pos := btn.get_global_transform().affine_inverse() * screen_pos
+	if btn.shape is RectangleShape2D:
+		var rect_shape := btn.shape as RectangleShape2D
+		var half_size := rect_shape.size * 0.5
+		return Rect2(-half_size, rect_shape.size).has_point(local_pos)
+	return false
+
+func _control_tree_contains_point(node: Node, screen_pos: Vector2) -> bool:
+	if node is Control:
+		var control := node as Control
+		if control.visible and control.mouse_filter != Control.MOUSE_FILTER_IGNORE:
+			if control.get_global_rect().has_point(screen_pos):
+				return true
+	for child in node.get_children():
+		if _control_tree_contains_point(child, screen_pos):
+			return true
+	return false
 
 func set_damage(amount):
 	if has_node("Hand/Node2D/Sprite2D/Area2D"):
