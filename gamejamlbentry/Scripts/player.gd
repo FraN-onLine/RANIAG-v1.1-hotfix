@@ -123,8 +123,20 @@ func _process(delta):
 	# Aim hand toward mouse
 	var arrow = $Hand
 	if arrow:
-		var mouse_pos = get_global_mouse_position()
-		var angle = (mouse_pos - global_position).angle()
+		var aim_dir: Vector2
+
+		if _is_mobile_controls_active() and is_instance_valid(joystick):
+			# Use joystick direction on mobile
+			aim_dir = joystick.output.normalized()
+
+			# Keep previous direction when joystick is idle
+			if aim_dir == Vector2.ZERO:
+				aim_dir = Vector2.LEFT if $AnimatedSprite2D.flip_h else Vector2.RIGHT
+		else:
+			# Use mouse on PC
+			aim_dir = (get_global_mouse_position() - global_position).normalized()
+
+		var angle = aim_dir.angle()
 		arrow.rotation = angle
 		arrow.position = Vector2.RIGHT.rotated(angle) * 3.5
 
