@@ -25,6 +25,7 @@ PPS: Found out may I-frame ung dash lols
 
 # Raniag v 1.1.05
 - Visual Enhancement where Sword no longer stays on respawn animation
-- Mobile Friendly update
+- Mobile Friendly fix update
+- UI updates
 
 PPS: updating raniag is a nightmare because wtf is this directory structure?  
