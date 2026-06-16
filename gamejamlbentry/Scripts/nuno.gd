@@ -23,8 +23,9 @@ var shoot_timer = 0.0
 var knockback_dir: Vector2 = Vector2.ZERO
 var knockback_time_left: float = 0.0
 var knockback_strength: float = 0.0
-
+var knockback_cooldown_time_left: float = 0.0
 func _ready():
+
 	health = max_health
 	healthbar.init_health(max_health)
 
@@ -33,9 +34,14 @@ func _process(delta):
 		velocity = Vector2.ZERO
 		return
 
+	# Knockback cooldown: prevents knockback from being re-applied rapidly.
+	if knockback_cooldown_time_left > 0.0:
+		knockback_cooldown_time_left = maxf(0.0, knockback_cooldown_time_left - delta)
+
 	# Knockback handling: override movement while active.
 	if knockback_time_left > 0.0:
 		knockback_time_left = maxf(0.0, knockback_time_left - delta)
+
 		var kb_dir := knockback_dir
 		if kb_dir.length() < 0.001:
 			kb_dir = Vector2.ZERO

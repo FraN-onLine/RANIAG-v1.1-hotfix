@@ -2,6 +2,11 @@ extends Area2D
 
 var damage : float = 20
 
+# Knockback throttle/cooldown.
+# While this cooldown is > 0 on an enemy, knockback won't be re-applied.
+const KNOCKBACK_COOLDOWN_SECONDS := 0.5
+
+
 # How strong the knockback should feel.
 # Stage 1 should be very small, stage 5 medium.
 # You can tweak these values later if needed.
@@ -32,8 +37,16 @@ func _on_body_entered(body):
 	if not body.has_method("take_damage"):
 		return
 
+	# Prevent applying knockback repeatedly within a short time window.
+	# (Damage can still happen every hit; knockback application is throttled.)
+	var kb_cd = body.get("knockback_cooldown_time_left")
+	if kb_cd != null and kb_cd > 0.0:
+		body.take_damage(damage)
+		return
+
 	# Damage
 	body.take_damage(damage)
+
 
 	# Knockback based on player stage
 	var stage: int = _get_attacker_stage()
@@ -66,7 +79,11 @@ func _on_body_entered(body):
 			body.knockback_dir = dir
 			body.knockback_strength = strength
 			body.knockback_time_left = 0.1
+			# 0.5s cooldown so knockback isn't re-applied rapidly.
+			body.knockback_cooldown_time_left = KNOCKBACK_COOLDOWN_SECONDS
+
 			return
+
 
 		# Fallback for existing enemies that don't have knockback fields:
 

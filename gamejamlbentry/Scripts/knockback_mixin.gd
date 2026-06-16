@@ -4,6 +4,8 @@ extends Node
 
 var knockback_dir: Vector2 = Vector2.ZERO
 var knockback_time_left: float = 0.0
+var knockback_cooldown_time_left: float = 0.0
+
 var knockback_strength: float = 0.0
 
 func apply_knockback(dir: Vector2, strength: float, duration: float = 0.3) -> void:

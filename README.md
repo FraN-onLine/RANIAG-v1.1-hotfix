@@ -29,6 +29,11 @@ PPS: Found out may I-frame ung dash lols
 - UI updates  
 
 # Raniag v 1.1.06  
-- Added scaling weapon Knockback  
+- Added scaling weapon Knockback 
+- Changed Mobile Narrative and Text Placement 
+
+# Raniag v 1.1.07
+- Hit delay added
+- now cannot have consecutive knockback
 
 PPS: updating raniag is a nightmare because wtf is this directory structure?  

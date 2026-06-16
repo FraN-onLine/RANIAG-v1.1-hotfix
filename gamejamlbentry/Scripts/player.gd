@@ -217,12 +217,16 @@ func _input(event):
 
 func _start_attack() -> void:
 	attacking = true
-	if is_instance_valid(weapon_hitbox):
-		weapon_hitbox.monitoring = true
 	$Hand/Node2D/AnimatedSprite2D.play("attack")
+
+	# Delay enabling the hitbox so damage registers after the attack wind-up.
+	await get_tree().create_timer(0.05).timeout
+	if is_instance_valid(weapon_hitbox) and attacking:
+		weapon_hitbox.monitoring = true
 
 func _stop_attack() -> void:
 	attacking = false
+
 	if is_instance_valid(weapon_hitbox):
 		weapon_hitbox.monitoring = false
 
