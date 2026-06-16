@@ -34,7 +34,10 @@ func show_narrative_sequence():
 	await get_tree().create_timer(2.0).timeout
 	narrative_label.visible = false
 	narrative_label.visible = true
-	narrative_label.text = narrative_texts[3]
+	if OS.has_feature("mobile"):
+		narrative_label.text = "Use Joystick to Move, Tap anywhere on screen to attack, Tap the dash button to Dash"
+	else:
+		narrative_label.text = narrative_texts[3]
 	await get_tree().create_timer(2.0).timeout
 	narrative_label.visible = false
 	

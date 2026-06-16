@@ -24,8 +24,11 @@ PPS: Found out may I-frame ung dash lols
 - Spirit nerf  
 
 # Raniag v 1.1.05
-- Visual Enhancement where Sword no longer stays on respawn animation
-- Mobile Friendly fix update
-- UI updates
+- Visual Enhancement where Sword no longer stays on respawn animation  
+- Mobile Friendly fix update  
+- UI updates  
+
+# Raniag v 1.1.06  
+- Added scaling weapon Knockback  
 
 PPS: updating raniag is a nightmare because wtf is this directory structure?  
