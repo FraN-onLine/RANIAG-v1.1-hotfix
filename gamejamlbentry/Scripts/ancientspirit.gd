@@ -16,6 +16,11 @@ var roam_timer = 0.0
 var run_away_timer = 0.0
 var run_away_direction = Vector2.ZERO
 
+# Knockback fields (set by weaponHitbox.gd)
+var knockback_dir: Vector2 = Vector2.ZERO
+var knockback_time_left: float = 0.0
+var knockback_strength: float = 0.0
+
 func _ready():
 	health = max_health
 	healthbar.init_health(max_health)
@@ -30,6 +35,20 @@ func _process(delta):
 	if not GameState.player_alive:
 		velocity = Vector2.ZERO
 		return
+
+	# Knockback handling: override movement while active.
+	if knockback_time_left > 0.0:
+		knockback_time_left = maxf(0.0, knockback_time_left - delta)
+		var kb_dir := knockback_dir
+		if kb_dir.length() < 0.001:
+			kb_dir = Vector2.ZERO
+		velocity = kb_dir.normalized() * knockback_strength
+
+		if abs(knockback_dir.x) > 0.1:
+			$AnimatedSprite2D.flip_h = knockback_dir.x > 0
+		move_and_slide()
+		return
+
 	if run_away_timer > 0:
 		run_away_timer -= delta
 		velocity = run_away_direction * speed
@@ -47,10 +66,10 @@ func _process(delta):
 				# Flip sprite based on direction to player
 				if abs(to_player.x) > 0.1:
 					$AnimatedSprite2D.flip_h = to_player.x > 0
+				else:
+					roam(delta)
 			else:
 				roam(delta)
-		else:
-			roam(delta)
 	
 	move_and_slide()
 

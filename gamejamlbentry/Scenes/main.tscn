@@ -1145,13 +1145,12 @@ script = ExtResource("1_kwxat")
 layer = 10
 
 [node name="TouchScreenButton" type="TouchScreenButton" parent="MobileUI" unique_id=1003207289]
-position = Vector2(935, 457)
+position = Vector2(949.00006, 459)
 scale = Vector2(4.5, 4.34375)
 texture_normal = ExtResource("2_aa8k8")
 texture_pressed = ExtResource("2_aa8k8")
 shape = SubResource("RectangleShape2D_nwwfm")
 action = "dash"
-metadata/_edit_group_ = true
 
 [node name="Joystick" type="Control" parent="MobileUI" unique_id=1875081324 groups=["joystick"]]
 layout_mode = 3
